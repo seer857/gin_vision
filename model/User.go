@@ -55,6 +55,7 @@ func EditUser(id int,data *User) int {
 }
 
 
+
 // 删除用户
 func DeleteUser(id int) int  {
 	var user User
@@ -63,4 +64,16 @@ func DeleteUser(id int) int  {
 		return errmsg.ERROR
 	}
 	return errmsg.SUCCSE
+}
+// 登录验证
+func CheckLogin(username string) int {
+	var user User
+
+	db.Where("username = ? ", username).First(&user)
+	if user.ID == 0{
+		return errmsg.ERROR_USERNAME_NOT_EXIST
+	}
+	//"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiIsImV4cCI6MTYxNDg3MzA2NSwiaXNzIjoiZ2luYmxvZyJ9.YoOlQ7XNpbfqcFgj_ka1FPJ2fvAUhpwnaMI-zk_80yo"
+	return errmsg.SUCCSE
+
 }
